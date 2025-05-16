@@ -29,4 +29,4 @@ replay_pid*
 
 # SonarLint cache
 .sonar/
-"database.properties" 
+database.properties
