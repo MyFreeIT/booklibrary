@@ -8,8 +8,10 @@ package com.github.myfreeit.booklibrary.dao;
  * and shall use it only in accordance with the terms of the license agreement you
  * entered into with Denis Odesskiy.
  */
+
 import com.github.myfreeit.booklibrary.models.Person;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -56,5 +58,15 @@ public class PersonDao {
 
   public void delete(int id) {
     jdbcTemplate.update("DELETE FROM Person WHERE id=?", id);
+  }
+
+  public Optional<Person> getPersonByFullName(String fullName) {
+    return jdbcTemplate
+        .query(
+            "SELECT * FROM Person WHERE full_name=?",
+            new BeanPropertyRowMapper<>(Person.class),
+            new Object[] {fullName})
+        .stream()
+        .findAny();
   }
 }
