@@ -20,7 +20,7 @@ public class Person {
   @Size(min = 2, max = 100, message = "person.name.size")
   private String fullName;
 
-  @Min(value = 1900, message = "person.age.min")
+  @Min(value = 1900, message = "person.yearOfBirth.min")
   private int yearOfBirth;
 
   public Person() {}
