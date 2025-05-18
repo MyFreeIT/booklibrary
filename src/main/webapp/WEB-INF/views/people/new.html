@@ -13,6 +13,9 @@
             <br/>
             <label for="yearOfBirth" th:text="#{people.new.yearOfBirth} ">Enter the year of birth: </label>
             <input type="text" th:field="*{yearOfBirth}" id="yearOfBirth"/>
+            <div style="color: red" th:if="${#fields.hasErrors('yearOfBirth')}" th:errors="*{yearOfBirth}">Year of birth
+                Error
+            </div>
             <br/>
             <input type="submit" th:value="#{people.new.create}">
         </form>
