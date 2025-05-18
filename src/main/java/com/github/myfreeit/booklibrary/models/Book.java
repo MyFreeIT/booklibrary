@@ -16,15 +16,15 @@ import jakarta.validation.constraints.Size;
 public class Book {
   private int id;
 
-  @NotEmpty(message = "book.title.empty")
-  @Size(min = 2, max = 100, message = "book.title.size")
+  @NotEmpty(message = "{book.title.empty}")
+  @Size(min = 2, max = 100, message = "{book.title.size}")
   private String title;
 
-  @NotEmpty(message = "book.author.empty")
-  @Size(min = 2, max = 100, message = "book.author.size")
+  @NotEmpty(message = "{book.author.empty}")
+  @Size(min = 2, max = 100, message = "{book.author.size}")
   private String author;
 
-  @Min(value = 1500, message = "book.year.min")
+  @Min(value = 1500, message = "{book.year.min}")
   private int year;
 
   public Book() {}
