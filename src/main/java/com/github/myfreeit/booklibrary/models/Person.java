@@ -16,11 +16,11 @@ import jakarta.validation.constraints.Size;
 public class Person {
   private int id;
 
-  @NotEmpty(message = "person.name.empty")
-  @Size(min = 2, max = 100, message = "person.name.size")
+  @NotEmpty(message = "{person.name.empty}")
+  @Size(min = 2, max = 100, message = "{person.name.size}")
   private String fullName;
 
-  @Min(value = 1900, message = "person.yearOfBirth.min")
+  @Min(value = 1900, message = "{person.yearOfBirth.min}")
   private int yearOfBirth;
 
   public Person() {}
