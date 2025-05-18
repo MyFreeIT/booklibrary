@@ -26,8 +26,8 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.springframework.web.servlet.i18n.CookieLocaleResolver;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
+import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 import org.thymeleaf.spring6.SpringTemplateEngine;
 import org.thymeleaf.spring6.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring6.view.ThymeleafViewResolver;
@@ -93,15 +93,18 @@ public class SpringConfig implements WebMvcConfigurer {
   public ReloadableResourceBundleMessageSource messageSource() {
     ReloadableResourceBundleMessageSource messageSource =
         new ReloadableResourceBundleMessageSource();
-    messageSource.setBasename("classpath:i18n/messages");
+
+    messageSource.setBasenames("classpath:/ValidationMessages", "classpath:/messages");
+
     messageSource.setDefaultEncoding("UTF-8");
+    messageSource.setUseCodeAsDefaultMessage(false);
     return messageSource;
   }
 
   @Bean
   public LocaleResolver localeResolver() {
-    CookieLocaleResolver localeResolver = new CookieLocaleResolver();
-    localeResolver.setDefaultLocale(Locale.ENGLISH);
+    SessionLocaleResolver localeResolver = new SessionLocaleResolver();
+    localeResolver.setDefaultLocale(Locale.getDefault());
     return localeResolver;
   }
 
