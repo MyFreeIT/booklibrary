@@ -9,6 +9,7 @@ package com.github.myfreeit.booklibrary.dao;
  * entered into with Denis Odesskiy.
  */
 
+import com.github.myfreeit.booklibrary.models.Book;
 import com.github.myfreeit.booklibrary.models.Person;
 import java.util.List;
 import java.util.Optional;
@@ -68,5 +69,12 @@ public class PersonDao {
             new Object[] {fullName})
         .stream()
         .findAny();
+  }
+
+  public List<Book> getBooksByPersonId(int id) {
+    return jdbcTemplate.query(
+        "SELECT * FROM Book WHERE person_id=?",
+        new BeanPropertyRowMapper<>(Book.class),
+        new Object[] {id});
   }
 }
