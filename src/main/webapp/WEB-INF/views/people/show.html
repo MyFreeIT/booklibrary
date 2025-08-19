@@ -7,6 +7,20 @@
     <body>
         <p th:text="${person.getFullName() + ', ' + person.getYearOfBirth()}">VALUE</p>
 
+        <div th:if="${books.isEmpty()}">
+            <p th:text="#{people.show.noBooks}">No books yet</p>
+        </div>
+
+        <div th:if="${!books.isEmpty()}">
+            <hr/>
+            <b th:text="#{people.show.books}">Books:</b>
+            <br/>
+            <table th:each="book : ${books}">
+                <tr th:text="${book.getTitle() + ', ' + book.getAuthor() + ', ' + book.getYear()}">book</tr>
+            </table>
+            <hr/>
+        </div>
+
         <form th:method="GET" th:action="@{/people/{id}/edit(id=${person.getId()})}">
             <input type="submit" th:value="#{people.show.edit}"/>
         </form>
