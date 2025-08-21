@@ -8,10 +8,10 @@
         <p th:text="${book.getTitle() + ', ' + book.getAuthor() + ', ' + book.getYear()}">VALUE</p>
 
         <div th:if="${owner}">
-            <span th:text="#{books.show.owner}"></span><span th:text="${owner.getFullName()}">Person Name</span>
+            <span th:text="#{books.show.owner}"></span> <span th:text="${owner.getFullName()}">Person Name</span>
         </div>
 
-        <form th:method="PATCH" th:action="@{/books/{id}/assign(id=${book.getId()})}">
+        <form th:method="PATCH" th:action="@{/books/{id}/release(id=${book.getId()})}">
             <input type="submit" th:value="#{books.show.freeTheBook}"/>
         </form>
 
