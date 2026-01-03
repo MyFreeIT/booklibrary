@@ -29,6 +29,6 @@ replay_pid*
 
 # SonarLint cache
 .sonar/
-database.properties
+hibernate.properties
 
 /target/
