@@ -99,7 +99,8 @@ public class SpringConfig implements WebMvcConfigurer {
     ReloadableResourceBundleMessageSource messageSource =
         new ReloadableResourceBundleMessageSource();
 
-    messageSource.setBasenames("classpath:/ValidationMessages", "classpath:/messages");
+    messageSource.setBasenames(
+        "classpath:/ValidationMessages", "/WEB-INF/locales/messages");
 
     messageSource.setDefaultEncoding("UTF-8");
     messageSource.setUseCodeAsDefaultMessage(false);
