@@ -4,6 +4,8 @@ import com.github.myfreeit.booklibrary.models.Book;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /*
  * Copyright (c) 2026, Denis Odesskiy. All rights reserved.
  *
@@ -14,4 +16,5 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface BooksRepository extends JpaRepository<Book, Integer> {
+  List<Book> searchByTitleStartingWith(String title);
 }
