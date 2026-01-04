@@ -1,7 +1,7 @@
 package com.github.myfreeit.booklibrary.util;
 
-import com.github.myfreeit.booklibrary.dao.PersonDao;
 import com.github.myfreeit.booklibrary.models.Person;
+import com.github.myfreeit.booklibrary.services.PeopleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
@@ -18,11 +18,11 @@ import org.springframework.validation.Validator;
 
 @Component
 public class PersonValidator implements Validator {
-  private final PersonDao personDao;
+  private final PeopleService peopleService;
 
   @Autowired
-  public PersonValidator(PersonDao personDao) {
-    this.personDao = personDao;
+  public PersonValidator(PeopleService peopleService) {
+    this.peopleService = peopleService;
   }
 
   @Override
@@ -33,7 +33,7 @@ public class PersonValidator implements Validator {
   @Override
   public void validate(Object target, Errors errors) {
     Person person = (Person) target;
-    if (personDao.getPersonByFullName(person.getFullName()).isPresent()) {
+    if (peopleService.getPersonByFullName(person.getFullName()).isPresent()) {
       errors.rejectValue("fullName", "person.validator.uniqueFullName");
     }
     if (!PersonNameValidator.isValid(person.getFullName())) {
