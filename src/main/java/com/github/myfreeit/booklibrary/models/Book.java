@@ -9,23 +9,36 @@ package com.github.myfreeit.booklibrary.models;
  * entered into with Denis Odesskiy.
  */
 
+import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 
+@Entity
+@Table(name = "Book")
 public class Book {
+  @Id
+  @Column(name = "id")
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private int id;
 
+  @Column(name = "title")
   @NotEmpty(message = "{book.title.empty}")
   @Size(min = 2, max = 100, message = "{book.title.size}")
   private String title;
 
+  @Column(name = "author")
   @NotEmpty(message = "{book.author.empty}")
   @Size(min = 2, max = 100, message = "{book.author.size}")
   private String author;
 
+  @Column(name = "year")
   @Min(value = 1500, message = "{book.year.min}")
   private int year;
+
+  @ManyToOne
+  @JoinColumn(name = "person_id", referencedColumnName = "id")
+  private Person owner;
 
   public Book() {}
 
@@ -65,5 +78,13 @@ public class Book {
 
   public void setYear(int year) {
     this.year = year;
+  }
+
+  public Person getOwner() {
+    return owner;
+  }
+
+  public void setOwner(Person owner) {
+    this.owner = owner;
   }
 }
