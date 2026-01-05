@@ -9,6 +9,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -88,12 +89,24 @@ public class BooksService {
   // Releases a book (this method is called when a person returns a book into the library)
   @Transactional
   public void release(int id) {
-    booksRepository.findById(id).ifPresent(book -> book.setOwner(null));
+    booksRepository
+        .findById(id)
+        .ifPresent(
+            book -> {
+              book.setOwner(null);
+              book.setTakenAt(null);
+            });
   }
 
   // Assigns book to a person (this method is called when person checks out a book from the library)
   @Transactional
   public void assign(int id, Person selectedPerson) {
-    booksRepository.findById(id).ifPresent(book -> book.setOwner(selectedPerson));
+    booksRepository
+        .findById(id)
+        .ifPresent(
+            book -> {
+              book.setOwner(selectedPerson);
+              book.setTakenAt(LocalDateTime.now());
+            });
   }
 }
