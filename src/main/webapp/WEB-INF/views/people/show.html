@@ -16,7 +16,13 @@
             <b th:text="#{people.show.books}">Books:</b>
             <br/>
             <table th:each="book : ${books}">
-                <tr th:text="${book.getTitle() + ', ' + book.getAuthor() + ', ' + book.getYear()}">book</tr>
+                <tr>
+                    <td>
+                        <span th:text="${book.getTitle() + ', ' + book.getAuthor() + ', ' + book.getYear()}"
+                              th:style="${book.isExpired()} ? 'color: red' : 'color: black'">Book
+                        </span>
+                    </td>
+                </tr>
             </table>
             <hr/>
         </div>
