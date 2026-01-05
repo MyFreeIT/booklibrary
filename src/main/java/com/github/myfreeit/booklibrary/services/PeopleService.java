@@ -3,6 +3,9 @@ package com.github.myfreeit.booklibrary.services;
 import com.github.myfreeit.booklibrary.models.Book;
 import com.github.myfreeit.booklibrary.models.Person;
 import com.github.myfreeit.booklibrary.repositories.PeopleRepository;
+
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -63,8 +66,23 @@ public class PeopleService {
     Optional<Person> person = peopleRepository.findById(id);
     if (person.isPresent()) {
 
-      // Since OneToMany communication has lazy loading
+      // Since OneToMany communication has lazy loading (in case the code changes)
       Hibernate.initialize(person.get().getBooks());
+
+      person
+          .get()
+          .getBooks()
+          .forEach(
+              book -> {
+                if (book.getTakenAt() != null) {
+                  long differenceTime =
+                      ChronoUnit.DAYS.between(book.getTakenAt(), LocalDateTime.now());
+
+                  if (differenceTime > 10) {
+                    book.setExpired(true);
+                  }
+                }
+              });
 
       return person.get().getBooks();
 
