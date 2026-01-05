@@ -14,6 +14,8 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Table(name = "Book")
 public class Book {
@@ -39,6 +41,11 @@ public class Book {
   @ManyToOne
   @JoinColumn(name = "person_id", referencedColumnName = "id")
   private Person owner;
+
+  @Column(name = "taken_at")
+  private LocalDateTime takenAt;
+
+  @Transient private boolean expired;
 
   public Book() {}
 
@@ -86,5 +93,21 @@ public class Book {
 
   public void setOwner(Person owner) {
     this.owner = owner;
+  }
+
+  public LocalDateTime getTakenAt() {
+    return takenAt;
+  }
+
+  public void setTakenAt(LocalDateTime takenAt) {
+    this.takenAt = takenAt;
+  }
+
+  public boolean isExpired() {
+    return expired;
+  }
+
+  public void setExpired(boolean expired) {
+    this.expired = expired;
   }
 }
